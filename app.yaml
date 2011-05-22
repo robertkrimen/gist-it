@@ -1,0 +1,13 @@
+application: 0
+version: 1
+
+runtime: python
+api_version: 1
+
+handlers:
+  - url: /assets
+    static_dir: assets 
+    expiration: 1d
+
+  - url: .*
+    script: app.py

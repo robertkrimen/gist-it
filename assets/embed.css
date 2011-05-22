@@ -1,0 +1,56 @@
+.gist-it-gist div,
+.gister-gist div {
+    padding: 0;
+    margin: 0;
+}
+
+.gist-it-gist .gist-file,
+.gister-gist .gist-file {
+    border: 1px solid #dedede; /* gray */
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+    margin-bottom: 1em;
+}
+
+.gist-it-gist .gist-file .gist-meta,
+.gister-gist .gist-file .gist-meta {
+    overflow: hidden;
+    font-size: 85%;
+    padding: .5em;
+    color: #666;
+    background-color: #eaeaea;
+}
+
+.gist-it-gist .gist-file .gist-meta a,
+.gister-gist .gist-file .gist-meta a {
+    color: #369;
+    text-decoration: underline;
+}
+
+.gist-it-gist .gist-file .gist-meta a:visited,
+.gister-gist .gist-file .gist-meta a:visited {
+    color: #737;
+    color: #369;
+}
+
+.gist-it-gist .gist-file .gist-meta a:hover,
+.gister-gist .gist-file .gist-meta a:hover {
+    text-decoration: underline;
+}
+
+.gist-it-gist .gist-file .gist-data,
+.gister-gist .gist-file .gist-data {
+      overflow: auto;
+      word-wrap: normal;
+      background-color: #f8f8ff;
+      border-bottom: 1px solid #ddd;
+      font-size: 100%;
+}
+
+.gist-it-gist .gist-file .gist-data pre,
+.gister-gist .gist-file .gist-data pre {
+    font-family: 'Bitstream Vera Sans Mono', 'Courier', monospace;
+    background: transparent !important;
+    margin: 0 !important;
+    border: none !important;
+    padding: .25em .5em .5em .5em !important;
+}

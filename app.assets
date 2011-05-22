@@ -1,0 +1,33 @@
+#!/usr/bin/env perl
+
+use Modern::Perl;
+
+sub {
+    my  ( $collate ) = @_;
+
+    $collate->import( <<_END_ );
+zeroclipboard
+jquery
+960
+prettify
+jquery-ui
+css3buttons
+tipsy
+_END_
+
+    $collate->write( 'assets' );
+
+    return;
+
+    $collate->write( 'root-assets/_', compressed => 1,
+        detach => [qw[
+            jquery-ui/base
+            css3buttons
+            zeroclipboard
+        ]],
+        rewrite => [
+            '/assets/_',
+            [ 'appengine/index.html', 'appengine/index_.html' ],
+        ]
+    );
+}
