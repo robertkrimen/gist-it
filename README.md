@@ -4,6 +4,10 @@ An AppEngine app to embed files from a github repository like a gist
 
 http://github.com/robertkrimen/gist-it
 
+### Try it
+
+You can try it at [gist-it.appspot.com](http://gist-it.appspot.com)
+
 ### Usage
 
 Launch a working example with:
