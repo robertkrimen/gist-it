@@ -11,6 +11,7 @@ import types
 import wsgiref.handlers
 import re
 import posixpath
+import urllib
 
 from google.appengine.api import urlfetch
 from google.appengine.ext import db
@@ -59,11 +60,10 @@ class dispatch_index( RequestHandler ):
         self.render_template( 'index.jinja.html' )
 
 class dispatch_gist_it( RequestHandler ):
-    def get( self ):
-        url_parse = urlparse.urlparse( self.request.url )
-        base = urlparse.urlunparse( ( url_parse.scheme, url_parse.netloc, '', '', '', '' ) )
-        path = os.environ[ 'PATH_INFO' ]
-        match = gist_it.Gist.match( path )
+    def get( self, location ):
+        base = self.url_for()
+        location = urllib.unquote( location )
+        match = gist_it.Gist.match( location )
         self.response.headers['Content-Type'] = 'text/plain'; 
         if not match:
             self.response.set_status( 404 )
@@ -72,10 +72,10 @@ class dispatch_gist_it( RequestHandler ):
             return
 
         else:
-            gist = gist_it.Gist.parse( path )
+            gist = gist_it.Gist.parse( location )
             if not gist:
                 self.response.set_status( 500 )
-                self.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( path ) )
+                self.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( location ) )
                 self.response.out.write( "\n" )
                 return
                 
@@ -114,7 +114,8 @@ class dispatch_gist_it( RequestHandler ):
 
 wsgi_application = webapp.WSGIApplication( [
     ( r'/', dispatch_index ),
-    ( r'.*', dispatch_gist_it ),
+    ( r'/xyzzy/(.*)', dispatch_gist_it ),
+    ( r'(.*)', dispatch_gist_it ),
 ], debug=_DEBUG_ )
 
 def main():
