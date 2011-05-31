@@ -4,6 +4,7 @@ use warnings;
 use ExtUtils::MakeMaker 6.31;
 
 my %PREREQ_PM = map { my ( $package, $version ) = split m/\s/; ( $package => $version || 0 ) } grep { m/\S/ } grep { ! /^\s*#/ } split m/\n/, <<_END_;
+local::lib
 Test::Most
 Test::HTTP
 _END_

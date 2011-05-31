@@ -3,9 +3,11 @@
 use strict;
 use warnings;
 
+use lib 't/p5/lib/perl5';
+use local::lib 't/p5';
+
 use Test::Most;
 use Test::HTTP;
-
 
 my $base = "http://localhost:8080"; 
 my $is_local = $base =~ m/localhost/;
