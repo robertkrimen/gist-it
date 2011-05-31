@@ -3,13 +3,26 @@ import posixpath
 import urlparse
 
 class Gist:
-    @classmethod
-    def parse( self, path ):
-        splitpath = posixpath.normpath( path ).split( '/' )
-        parse = {}
 
+    @classmethod
+    def match( self, location ):
+        match = re.match( r'^(?:/https?:/)?/?github(?:\.com)?/(.*)$', location )
+        if not match:
+            return None
+        return match
+
+    @classmethod
+    def parse( self, location ):
+        match = self.match( location )
+        if not match:
+            return None
+
+        path = match.group( 1 )
+        splitpath = posixpath.normpath( path ).split( '/' )
         if len( splitpath ) < 5:
             return None
+
+        parse = {}
 
         # user / respository / format / branch / path
         user        = parse[ 'user' ]       = splitpath[ 0 ]

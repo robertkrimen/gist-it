@@ -31,16 +31,16 @@ jinja2 = jinja2_.Environment( loader=jinja2_.FileSystemLoader( 'jinja2-assets' )
 
 import util
 
-def render_gist_html( base, parse, document ):
-    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, parse = parse, document = document )
+def render_gist_html( base, gist, document ):
+    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document )
     return result
 
-def render_gist_js( base, parse, gist_html  ):
-    result = jinja2.get_template( 'gist.jinja.js' ).render( base = base, parse = parse, gist_html = gist_html )
+def render_gist_js( base, gist, gist_html  ):
+    result = jinja2.get_template( 'gist.jinja.js' ).render( base = base, gist = gist, gist_html = gist_html )
     return result
 
-def render_gist_js_callback( base, parse, gist_html  ):
-    return "%s( '%s', '%s' );" % ( callback, gist_html.encode( 'string_escape' ), parse['raw-path'] )
+def render_gist_js_callback( base, gist, gist_html  ):
+    return "%s( '%s', '%s' );" % ( callback, gist_html.encode( 'string_escape' ), gist.raw_path )
 
 class RequestHandler( webapp.RequestHandler ):
 
@@ -63,7 +63,7 @@ class dispatch_gist_it( RequestHandler ):
         url_parse = urlparse.urlparse( self.request.url )
         base = urlparse.urlunparse( ( url_parse.scheme, url_parse.netloc, '', '', '', '' ) )
         path = os.environ[ 'PATH_INFO' ]
-        match = re.match( r'^(?:/https?:/)?/github(?:\.com)?/(.*)$', path )
+        match = util.Gist.match( path )
         self.response.headers['Content-Type'] = 'text/plain'; 
         if not match:
             self.response.set_status( 404 )
@@ -72,9 +72,8 @@ class dispatch_gist_it( RequestHandler ):
             return
 
         else:
-            path = match.group( 1 )
-            parse = util.parse_github_path( path )
-            if not parse:
+            gist = util.Gist.parse( path )
+            if not gist:
                 self.response.set_status( 500 )
                 self.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( path ) )
                 self.response.out.write( "\n" )
@@ -84,11 +83,11 @@ class dispatch_gist_it( RequestHandler ):
                 self.response.out.write( memcache.delete( memcache_key ) )
                 return
 
-            memcache_key = parse['raw-url']
+            memcache_key = gist.raw_url
             data = memcache.get( memcache_key )
             if data is None or not _CACHE_:
                 # For below, see: http://stackoverflow.com/questions/2826238/does-google-appengine-cache-external-requests
-                response = urlfetch.fetch( parse['raw-url'], headers = { 'Cache-Control': 'max-age=300' } )
+                response = urlfetch.fetch( gist.raw_url, headers = { 'Cache-Control': 'max-age=300' } )
                 if response.status_code != 200:
                     if response.status_code == 403:
                         self.response.set_status( response.status_code )
@@ -96,15 +95,15 @@ class dispatch_gist_it( RequestHandler ):
                         self.response.set_status( response.status_code )
                     else:
                         self.response.set_status( 500 )
-                    self.response.out.write( "Unable to fetch \"%s\": (%i)" % ( parse['raw-url'], response.status_code ) )
+                    self.response.out.write( "Unable to fetch \"%s\": (%i)" % ( gist.raw_url, response.status_code ) )
                     return
                 else:
-                    gist_html = str( render_gist_html( base, parse, response.content ) ).strip()
+                    gist_html = str( render_gist_html( base, gist, response.content ) ).strip()
                     callback = self.request.get( 'callback' );
                     if callback != '':
-                        result = render_gist_js_callback( base, parse, gist_html )
+                        result = render_gist_js_callback( base, gist, gist_html )
                     else:
-                        result = render_gist_js( base, parse, gist_html )
+                        result = render_gist_js( base, gist, gist_html )
                     result = str( result ).strip()
                     data = result
                     if _CACHE_:

@@ -19,8 +19,23 @@ class t( unittest2.TestCase ):
         self.assertEqual( parse['user-repository-branch-path'], 'robertkrimen/yzzy-projection/master/src/yzzy/projection/View.as' )
         self.assertEqual( parse['user-repository'], 'robertkrimen/yzzy-projection' )
 
-        gist = util.Gist.parse( 'robertkrimen/yzzy-projection/raw/master/src/yzzy/projection/View.as' )
+        self.assertTrue( util.Gist.match( 'github/robertkrimen/yzzy-projection/raw/master/src/yzzy/projection/View.as' ) )
+
+        gist = util.Gist.parse( 'github/robertkrimen/yzzy-projection/raw/master/src/yzzy/projection/View.as' )
         self.assertEqual( gist.user, 'robertkrimen' )
+        self.assertEqual( gist.repository, 'yzzy-projection' )
+        self.assertEqual( gist.branch, 'master' )
+        self.assertEqual( gist.path, 'src/yzzy/projection/View.as' )
+
+        self.assertEqual( gist.blob_path, 'robertkrimen/yzzy-projection/blob/master/src/yzzy/projection/View.as' )
+        self.assertEqual( gist.blob_url, 'https://github.com/robertkrimen/yzzy-projection/blob/master/src/yzzy/projection/View.as' )
+
+        self.assertEqual( gist.raw_path, 'robertkrimen/yzzy-projection/raw/master/src/yzzy/projection/View.as' )
+        self.assertEqual( gist.raw_url, 'https://github.com/robertkrimen/yzzy-projection/raw/master/src/yzzy/projection/View.as' )
+
+        self.assertEqual( gist.user_repository, 'robertkrimen/yzzy-projection' )
+        self.assertEqual( gist.user_repository_branch_path, 'robertkrimen/yzzy-projection/master/src/yzzy/projection/View.as' )
+        self.assertEqual( gist.user_repository_url, 'https://github.com/robertkrimen/yzzy-projection' )
 
 if __name__ == '__main__':
     unittest2.main()
