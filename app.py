@@ -29,7 +29,7 @@ from versioned_memcache import memcache
 import jinja2 as jinja2_
 jinja2 = jinja2_.Environment( loader=jinja2_.FileSystemLoader( 'jinja2-assets' ) )
 
-import util
+import gist_it
 
 def render_gist_html( base, gist, document ):
     result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document )
@@ -39,7 +39,7 @@ def render_gist_js( base, gist, gist_html  ):
     result = jinja2.get_template( 'gist.jinja.js' ).render( base = base, gist = gist, gist_html = gist_html )
     return result
 
-def render_gist_js_callback( base, gist, gist_html  ):
+def render_gist_js_callback( callback, gist, gist_html  ):
     return "%s( '%s', '%s' );" % ( callback, gist_html.encode( 'string_escape' ), gist.raw_path )
 
 class RequestHandler( webapp.RequestHandler ):
@@ -63,7 +63,7 @@ class dispatch_gist_it( RequestHandler ):
         url_parse = urlparse.urlparse( self.request.url )
         base = urlparse.urlunparse( ( url_parse.scheme, url_parse.netloc, '', '', '', '' ) )
         path = os.environ[ 'PATH_INFO' ]
-        match = util.Gist.match( path )
+        match = gist_it.Gist.match( path )
         self.response.headers['Content-Type'] = 'text/plain'; 
         if not match:
             self.response.set_status( 404 )
@@ -72,7 +72,7 @@ class dispatch_gist_it( RequestHandler ):
             return
 
         else:
-            gist = util.Gist.parse( path )
+            gist = gist_it.Gist.parse( path )
             if not gist:
                 self.response.set_status( 500 )
                 self.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( path ) )
@@ -101,7 +101,7 @@ class dispatch_gist_it( RequestHandler ):
                     gist_html = str( render_gist_html( base, gist, response.content ) ).strip()
                     callback = self.request.get( 'callback' );
                     if callback != '':
-                        result = render_gist_js_callback( base, gist, gist_html )
+                        result = render_gist_js_callback( callback, gist, gist_html )
                     else:
                         result = render_gist_js( base, gist, gist_html )
                     result = str( result ).strip()
