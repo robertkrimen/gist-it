@@ -19,7 +19,7 @@ The gisting handler is located at ```app.py/dispatch_gist_it```
 Associated the handler with a path is pretty easy, for example:
 
 	wsgi_application = webapp.WSGIApplication( [
-		( r'.*', dispatch_gist_it ),
+		( r'(.*)', dispatch_gist_it ),
 	], debug=True )
 
 ### Testing
