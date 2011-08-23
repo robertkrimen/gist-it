@@ -32,6 +32,18 @@ jinja2 = jinja2_.Environment( loader=jinja2_.FileSystemLoader( 'jinja2-assets' )
 
 import gist_it
 
+'''
+Take a (line) slice of content, based on a start/end index
+'''
+def take_slice(content, start_line = 0, end_line = 0):
+    if (start_line == 0 and end_line == 0):
+        return content
+    
+    if (end_line == 0):
+        return '\n'.join(content.splitlines()[start_line:])
+    
+    return '\n'.join(content.splitlines()[start_line:end_line])
+
 def render_gist_html( base, gist, document ):
     result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document )
     return result
@@ -72,7 +84,7 @@ class dispatch_gist_it( RequestHandler ):
             return
 
         else:
-            gist = gist_it.Gist.parse( location )
+            gist = gist_it.Gist.parse( location, slice = self.request.get( 'slice' ) )
             if not gist:
                 self.response.set_status( 500 )
                 self.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( location ) )
@@ -98,7 +110,8 @@ class dispatch_gist_it( RequestHandler ):
                     self.response.out.write( "Unable to fetch \"%s\": (%i)" % ( gist.raw_url, response.status_code ) )
                     return
                 else:
-                    gist_html = str( render_gist_html( base, gist, response.content ) ).strip()
+                    gist_content = take_slice( response.content, gist.start_line, gist.end_line )
+                    gist_html = str( render_gist_html( base, gist, gist_content ) ).strip()
                     callback = self.request.get( 'callback' );
                     if callback != '':
                         result = render_gist_js_callback( callback, gist, gist_html )

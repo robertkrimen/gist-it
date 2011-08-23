@@ -5,8 +5,14 @@ import urlparse
 def match( location ):
     return Gist.match( location )
 
-def parse( location ):
-    return Gist.parse( location )
+def parse( location, **arguments ):
+    return Gist.parse( location, **arguments )
+
+def parse_slice( slice_ ):
+    match = re.match( r'^(\d*):?(\d*)$', slice_ )
+    if match is None:
+        return ( 0, 0 )
+    return map( lambda _: int(_) if len(_) else 0, match.groups(0) )
 
 class Gist:
 
@@ -18,7 +24,7 @@ class Gist:
         return match
 
     @classmethod
-    def parse( self, location ):
+    def parse( self, location, slice_ = '' ):
         match = self.match( location )
         if not match:
             return None

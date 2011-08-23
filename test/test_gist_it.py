@@ -30,5 +30,7 @@ class t( unittest2.TestCase ):
         self.assertEqual( gist.user_repository_branch_path, 'robertkrimen/yzzy-projection/master/src/yzzy/projection/View.as' )
         self.assertEqual( gist.user_repository_url, 'https://github.com/robertkrimen/yzzy-projection' )
 
+        gist = gist_it.parse( 'github/robertkrimen/yzzy-projection/raw/master/src/yzzy/projection/View.as', slice_ = '1:' )
+
 if __name__ == '__main__':
     unittest2.main()
