@@ -31,18 +31,7 @@ import jinja2 as jinja2_
 jinja2 = jinja2_.Environment( loader=jinja2_.FileSystemLoader( 'jinja2-assets' ) )
 
 import gist_it
-
-'''
-Take a (line) slice of content, based on a start/end index
-'''
-def take_slice(content, start_line = 0, end_line = 0):
-    if (start_line == 0 and end_line == 0):
-        return content
-    
-    if (end_line == 0):
-        return '\n'.join(content.splitlines()[start_line:])
-    
-    return '\n'.join(content.splitlines()[start_line:end_line])
+from gist_it import take_slice
 
 def render_gist_html( base, gist, document ):
     result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document )
@@ -84,7 +73,7 @@ class dispatch_gist_it( RequestHandler ):
             return
 
         else:
-            gist = gist_it.Gist.parse( location, slice = self.request.get( 'slice' ) )
+            gist = gist_it.Gist.parse( location, slice_ = self.request.get( 'slice' ) )
             if not gist:
                 self.response.set_status( 500 )
                 self.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( location ) )
