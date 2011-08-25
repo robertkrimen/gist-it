@@ -25,6 +25,9 @@ def parse_footer( footer_option ):
         return '1'
 
 def parse_slice( slice_option ):
+    if slice_option is None:
+        return ( 0, 0 )
+    
     match = re.match( r'^(-?\d+)$', slice_option )
     if match:
         return ( int( match.group(1) ), None )
@@ -63,7 +66,7 @@ class Gist:
         return match
 
     @classmethod
-    def parse( self, location, slice_ = '' ):
+    def parse( self, location, slice_option = None, footer_option = None ):
         match = self.match( location )
         if not match:
             return None
@@ -95,9 +98,11 @@ class Gist:
         user_repository_branch_path = parse[ 'user_repository_branch_path' ]    = '/'.join([ user_repository, branch, path ]);
         user_repository_url         = parse[ 'user_repository_url' ]            = urlparse.urljoin( 'https://github.com', user_repository )
 
-        slice_ = parse_slice( slice_ )
-        parse[ 'start_line' ] = slice_[0]
-        parse[ 'end_line' ] = slice_[1]
+        slice_option = parse_slice( slice_option )
+        parse[ 'start_line' ] = slice_option[0]
+        parse[ 'end_line' ] = slice_option[1]
+
+        parse[ 'footer' ] = parse_footer( footer_option )
 
         return Gist( **parse )
 
@@ -107,6 +112,7 @@ class Gist:
                 'raw_path', 'raw_url', 
                 'user_repository', 'user_repository_branch_path', 'user_repository_url',
                 'start_line', 'end_line',
+                'footer'
                 ]:
             setattr( self, key, arguments[ key ] )
 

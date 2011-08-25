@@ -48,7 +48,7 @@ def dispatch_gist_it( dispatch, location ):
             slice_option = dispatch.request.get( 'slice' )
             footer_option = dispatch.request.get( 'footer' )
 
-            gist = gist_it.Gist.parse( location, slice_option = slice_option )
+            gist = gist_it.Gist.parse( location, slice_option = slice_option, footer_option = footer_option )
             if not gist:
                 dispatch.response.set_status( 500 )
                 dispatch.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( location ) )
@@ -76,11 +76,7 @@ def dispatch_gist_it( dispatch, location ):
                     return
                 else:
                     gist_content = take_slice( response.content, gist.start_line, gist.end_line )
-                    if dispatch.request.get( 'test' ):
-                        dispatch.response.headers['Content-Type'] = 'text/plain'; 
-                        dispatch.response.out.write( gist_content )
-                        return
-                    gist_html = str( render_gist_html( base, gist, gist_content ) ).strip()
+                    gist_html = str( render_gist_html( base, gist, gist_content, footer = gist.footer ) ).strip()
                     callback = dispatch.request.get( 'callback' );
                     if callback != '':
                         result = render_gist_js_callback( callback, gist, gist_html )
@@ -88,6 +84,10 @@ def dispatch_gist_it( dispatch, location ):
                         result = render_gist_js( base, gist, gist_html )
                     result = str( result ).strip()
                     data = result
+                    if dispatch.request.get( 'test' ):
+                        dispatch.response.headers['Content-Type'] = 'text/plain'; 
+                        dispatch.response.out.write( gist_html )
+                        return
                     if _CACHE_:
                         memcache.add( memcache_key, data, 60 * 60 * 24 )
 
