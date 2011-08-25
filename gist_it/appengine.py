@@ -16,12 +16,12 @@ from google.appengine.ext import webapp
 from versioned_memcache import memcache
 
 import gist_it
-from gist_it import take_slice
+from gist_it import take_slice, parse_footer
 
-def render_gist_html( base, gist, document ):
+def render_gist_html( base, gist, document, footer = '1' ):
     if jinja2 is None:
         return
-    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document )
+    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document, footer = footer )
     return result
 
 def render_gist_js( base, gist, gist_html  ):
@@ -35,7 +35,6 @@ def render_gist_js_callback( callback, gist, gist_html  ):
 
 # dispatch == RequestHandler
 def dispatch_gist_it( dispatch, location ):
-        base = dispatch.url_for()
         location = urllib.unquote( location )
         match = gist_it.Gist.match( location )
         dispatch.response.headers['Content-Type'] = 'text/plain'; 
@@ -46,7 +45,10 @@ def dispatch_gist_it( dispatch, location ):
             return
 
         else:
-            gist = gist_it.Gist.parse( location, slice_ = dispatch.request.get( 'slice' ) )
+            slice_option = dispatch.request.get( 'slice' )
+            footer_option = dispatch.request.get( 'footer' )
+
+            gist = gist_it.Gist.parse( location, slice_option = slice_option )
             if not gist:
                 dispatch.response.set_status( 500 )
                 dispatch.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( location ) )
@@ -60,6 +62,7 @@ def dispatch_gist_it( dispatch, location ):
             memcache_key = gist.raw_url
             data = memcache.get( memcache_key )
             if data is None or not _CACHE_:
+                base = dispatch.url_for()
                 # For below, see: http://stackoverflow.com/questions/2826238/does-google-appengine-cache-external-requests
                 response = urlfetch.fetch( gist.raw_url, headers = { 'Cache-Control': 'max-age=300' } )
                 if response.status_code != 200:

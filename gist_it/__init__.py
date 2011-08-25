@@ -8,12 +8,28 @@ def match( location ):
 def parse( location, **arguments ):
     return Gist.parse( location, **arguments )
 
-def parse_slice( slice_ ):
-    match = re.match( r'^(-?\d+)$', slice_ )
+def parse_footer( footer_option ):
+    if footer_option is None or footer_option is True:
+        return '1'
+    elif footer_option is False:
+        return '0'
+
+    footer_option = str( footer_option ).lower().strip()
+    if footer_option == '1' or footer_option == '' or footer_option == 'true':
+        return '1'
+    elif footer_option == '0' or footer_option == 'false' or footer_option == 'none' or footer_option == 'no':
+        return '0'
+    elif footer_option == 'noby':
+        return footer_option
+    else:
+        return '1'
+
+def parse_slice( slice_option ):
+    match = re.match( r'^(-?\d+)$', slice_option )
     if match:
         return ( int( match.group(1) ), None )
 
-    match = re.match( r'^(-?\d+)?:?(-?\d+)?$', slice_ )
+    match = re.match( r'^(-?\d+)?:?(-?\d+)?$', slice_option )
     if match is None:
         return ( 0, 0 )
 
