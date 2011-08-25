@@ -9,20 +9,31 @@ def parse( location, **arguments ):
     return Gist.parse( location, **arguments )
 
 def parse_slice( slice_ ):
+    match = re.match( r'^(-?\d+)$', slice_ )
+    if match:
+        return ( int( match.group(1) ), None )
+
     match = re.match( r'^(-?\d+)?:?(-?\d+)?$', slice_ )
     if match is None:
         return ( 0, 0 )
-    return map( lambda _: int(_) if _ is not None else 0, match.groups(0) )
+
+    return map( lambda _: int(_) if _ is not None else 0, match.groups() )
 
 '''
 Take a (line) slice of content, based on a start/end index
 '''
-def take_slice( content, start_line = 0, end_line = 0 ):
+def take_slice( content, start_line = None, end_line = None ):
+    if (start_line is None and end_line is None):
+        return content
+
     if (start_line == 0 and end_line == 0):
         return content
     
     if (end_line == 0):
         return '\n'.join(content.splitlines()[start_line:])
+
+    if (end_line is None):
+        return content.splitlines()[start_line]
 
     return '\n'.join(content.splitlines()[start_line:end_line])
 
