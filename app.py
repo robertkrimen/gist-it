@@ -100,16 +100,21 @@ class dispatch_gist_it( RequestHandler ):
                     return
                 else:
                     gist_content = take_slice( response.content, gist.start_line, gist.end_line )
-                    gist_html = str( render_gist_html( base, gist, gist_content ) ).strip()
-                    callback = self.request.get( 'callback' );
-                    if callback != '':
-                        result = render_gist_js_callback( callback, gist, gist_html )
+                    if self.request.get( 'test' ):
+                        self.response.headers['Content-Type'] = 'text/plain'; 
+                        self.response.out.write( gist_content )
+                        return
                     else:
-                        result = render_gist_js( base, gist, gist_html )
-                    result = str( result ).strip()
-                    data = result
-                    if _CACHE_:
-                        memcache.add( memcache_key, data, 60 * 60 * 24 )
+                        gist_html = str( render_gist_html( base, gist, gist_content ) ).strip()
+                        callback = self.request.get( 'callback' );
+                        if callback != '':
+                            result = render_gist_js_callback( callback, gist, gist_html )
+                        else:
+                            result = render_gist_js( base, gist, gist_html )
+                        result = str( result ).strip()
+                        data = result
+                        if _CACHE_:
+                            memcache.add( memcache_key, data, 60 * 60 * 24 )
 
             self.response.headers['Content-Type'] = 'text/javascript'; 
             self.response.out.write( data )
