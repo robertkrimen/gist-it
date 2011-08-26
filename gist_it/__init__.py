@@ -59,6 +59,17 @@ def take_slice( content, start_line = None, end_line = None ):
 class Gist:
 
     @classmethod
+    def keylist( self ):
+        return [
+            'user', 'repository', 'branch', 'path',
+            'blob_path', 'blob_url',
+            'raw_path', 'raw_url', 
+            'user_repository', 'user_repository_branch_path', 'user_repository_url',
+            'start_line', 'end_line',
+            'footer'
+        ]
+
+    @classmethod
     def match( self, location ):
         match = re.match( r'^(?:/https?:/)?/?github(?:\.com)?/(.*)$', location )
         if not match:
@@ -107,12 +118,11 @@ class Gist:
         return Gist( **parse )
 
     def __init__( self, **arguments ):
-        for key in [ 'user', 'repository', 'branch', 'path',
-                'blob_path', 'blob_url',
-                'raw_path', 'raw_url', 
-                'user_repository', 'user_repository_branch_path', 'user_repository_url',
-                'start_line', 'end_line',
-                'footer'
-                ]:
+        for key in self.keylist():
             setattr( self, key, arguments[ key ] )
 
+    def value( self ):
+        value = {}
+        for key in self.keylist():
+            value[ key ] = getattr( self, key )
+        return value

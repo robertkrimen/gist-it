@@ -4,6 +4,7 @@ import os
 import cgi
 import sys
 import urllib
+import simplejson
 
 jinja2 = None
 
@@ -84,13 +85,24 @@ def dispatch_gist_it( dispatch, location ):
                         result = render_gist_js( base, gist, gist_html )
                     result = str( result ).strip()
                     data = result
-                    if dispatch.request.get( 'test' ):
-                        dispatch.response.headers['Content-Type'] = 'text/plain'; 
-                        dispatch.response.out.write( gist_html )
+                    test = dispatch.request.get( 'test' )
+                    if test:
+                        if test == 'json':
+                            dispatch.response.headers['Content-Type'] = 'text/plain';
+                            dispatch.response.out.write(simplejson.dumps({
+                                'gist': gist.value(),
+                                'content': gist_content,
+                                'html': gist_html,
+                            }))
+                        elif False and test == 'example':
+                            pass
+                        else:
+                            dispatch.response.headers['Content-Type'] = 'text/plain' 
+                            dispatch.response.out.write( gist_html )
                         return
                     if _CACHE_:
                         memcache.add( memcache_key, data, 60 * 60 * 24 )
 
-            dispatch.response.headers['Content-Type'] = 'text/javascript'; 
+            dispatch.response.headers['Content-Type'] = 'text/javascript'
             dispatch.response.out.write( data )
 
