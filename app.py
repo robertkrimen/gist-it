@@ -49,14 +49,15 @@ class dispatch_index( RequestHandler ):
 
 class dispatch_test( RequestHandler ):
     def get( self ):
-        self.render_template( 'test.jinja.html', list = [
-            'github/robertkrimen/gist-it-example/raw/master/example.js?',
-            'github/robertkrimen/gist-it-example/raw/master/example.js?footer=0',
-            'github/robertkrimen/gist-it-example/raw/master/example.js?footer=noby',
-            'github/robertkrimen/gist-it-example/raw/master/example.js?slice=1:',
-            'github/robertkrimen/gist-it-example/raw/master/example.js?slice=0',
-            'github/robertkrimen/gist-it-example/raw/master/example.js?slice=-1',
-        ] )
+        self.render_template( 'test.jinja.html', list =
+            map( lambda _: ( _, 'github/robertkrimen/gist-it-example/raw/master/example.js?' + _ ), [
+            'footer=0',
+            'footer=noby',
+            'slice=1:',
+            'slice=0',
+            'slice=-1',
+            ] )
+        )
 
 class dispatch_gist_it( RequestHandler ):
     def get( self, location ):
