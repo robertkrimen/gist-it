@@ -1,57 +1,68 @@
 <!doctype html>
 <html>
-    <head><title>gist-it - Embed files from a github repository like a gist</title>
+    <head><title>gist-it.appspot.com - Embed files from a github repository like a gist</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <!--collate:css[-->
-        <link rel="stylesheet" href="/assets/960/reset.css" />
-        <link rel="stylesheet" href="/assets/960/text.css" />
+        <link rel="stylesheet" href="/assets/html5-boilerplate/style.css" />
         <link rel="stylesheet" href="/assets/prettify/prettify.css" />
         <link rel="stylesheet" href="/assets/jquery-ui/base/jquery-ui.css" />
         <link rel="stylesheet" href="/assets/css3buttons/css3buttons.css" />
         <link rel="stylesheet" href="/assets/tipsy/tipsy.css" />
         <!--]-->
         <link rel="stylesheet" href="/assets/index.css" />
+    {% block head %}
+    {% endblock %}
     </head>
     <body>
 
         <div class="title section">
-            <span class="headline"><a href="{{ dispatch.url_for() }}">gist-it</a></span>
-            <span class="subtitle"> &nbsp;&bull;&nbsp; Embed files from a github repository like a gist</span>
-            <div class="clear"></div>
+            <div>
+                <span class="headline"><a href="{{ dispatch.url_for() }}">gist-it.appspot.com</a></span>
+                <span class="subtitle"> &nbsp;&ndash;&nbsp; Embed files from a github repository like a gist</span>
+            </div>
+            <div class="subbar">
+            {% block subbar %}
+            {% endblock %}
+            </div>
         </div>
 
         <div class="section">
             <h3>Description</h3>
-            <p><a href="{{ dispatch.url_for() }}">gist-it</a> lets you take a file from your GitHub repository and embed it into any webpage, just like a gist</p>
+            <p><a href="{{ dispatch.url_for() }}">gist-it.appspot.com</a> lets you take a file from your GitHub repository and embed it into any webpage, just like a gist</p>
             <p>Syntax highlighting by <a href="http://google-code-prettify.googlecode.com">google-code-prettify</a></p>
         </div>
 
         <div class="section">
             <h3>Usage</h3>
-            <p>To embed a file, wrap a GitHub url in a <span class="monospace">&lt;script&gt;</span> tag like the following:</p>
-<pre class="prettyprint">&lt;script src="{{ dispatch.url_for() }}/github/$user/$repository/raw/$branch/$path"&gt;&lt;/script&gt;</pre>
+            <p>Take a github file url and prefix it with <code>http://gist-it.appspot.com</code> and embed the result within a <code>&lt;script&gt;</code> tag:</p>
+<pre class="prettyprint">&lt;script src="http://gist-it.appspot.com/http://github.com/$file"&gt;&lt;/script&gt;</pre>
+        <br>
+        <p><code>$file</code> should follow the github repository pattern of <code>$user/$repository/raw/master/$path</code></p>
+        <p><code>github/$file</code> is a shorthand for <code>http://github.com/$file</code> and works in the same way</p>
+        <p>You can also supply a <code>slice</code> parameter to show only a particular portion of the file:</p>
+        <blockquote>
+            <table>
+                <tr>
+                    <td class="code">slice=24:100</td>
+                    <td>Show lines 24 through 100</td>
+                </tr>
+                <tr>
+                    <td class="code">slice=1:-2</td>
+                    <td>Show the first line up to and including the second to last line</td>
+                </tr>
+                <tr>
+                    <td class="code">slice=1</td>
+                    <td>Show only the first line of the file</td>
+                </tr>
+            </table>
+        </blockquote>
+
         </div>
 
         <div class="section">
-            <h3>Try it</h3>
-            <p>
-                <input id="try-it-field" type="text">
-                <a href="#" id="try-it-load" class="button">Load</a>
-                <a href="#" id="try-it-reset" class="button negative">Reset</a>
-                <img id="try-it-loading" style="display: none;" src="/assets/spinner.gif" /><br/>
-                <span id="try-it-eg" class="eg">Paste or type in any GitHub file url (e.g. <u>http://github.com/robertkrimen/gist-it-example/blob/master/example.js</u>)</span>
-            </p>
-
-            <label>Source</label><div class="clear"></div>
-<pre id="try-it-source" class="prettyprint"></pre>
-            <div id="try-it-ctc-zeroclipboard" style="position: relative;">
-                <a href="#" id="try-it-ctc" class="button"><img style="vertical-align: top;" src="/assets/clipboard.png" />&nbsp; Copy to Clipboard</a>
-            </div>
-
-            <label>Result</label><div class="clear"></div>
-            <div id="try-it-result">
-                <script src="{{ dispatch.url_for( 'https://github.com/robertkrimen/gist-it-example/raw/master/example.js' ) }}"></script>
-            </div>
+            <h3>Example</h3>
+            <blockquote><code>github/robertkrimen/gist-it-example/raw/master/example.js</code></blockquote>
+            <script src="{{ dispatch.url_for( 'https://github.com/robertkrimen/gist-it-example/raw/master/example.js' ) }}"></script>
         </div>
 
         <div class="section">
@@ -61,19 +72,19 @@
 
         <div class="section">
             <h3>Author</h3>
-            <a href="http://github.com/robertkrimen">Robert Krimen</a><br/>
-            <ul class="author">
-                <li><a href="http://github.com/robertkrimen">github / <span class="name">robertkrimen</span></a>
-                <li><a href="http://search.cpan.org/~rokr/?R=D">CPAN / <span class="name">rokr</span></a>
-                <li><a href="mailto:robertkrimen@gmail.com"><span class="name">robertkrimen</span> @ gmail</a>
-            </ul>
+            <a href="http://github.com/robertkrimen">Robert Krimen</a>
+            &lt;<a href="mailto:robertkrimen@gmail.com">robertkrimen@gmail</a>&gt;
+        </div>
+
+        <div class="section">
+            <h3>Feedback</h3>
+            <div id="feedback-form">
+                <p><textarea id="feedback-field"></textarea></p>
+                <p><a id="feedback-submit" href="#" class="button">Submit</a> <img id="feedback-submitting" src="/assets/spinner.gif" style="display: none;"></p>
+            </div>
         </div>
 
     </div>
-
-<script type="text/javascript">
-    __gi_base = "{{ dispatch.url_for() }}"
-</script>
 
         <!--collate:js[-->
 <script type="text/javascript" src="/assets/zeroclipboard/ZeroClipboard.js"></script>
@@ -82,7 +93,6 @@
 <script type="text/javascript" src="/assets/jquery-ui/jquery-ui.js"></script>
 <script type="text/javascript" src="/assets/prettify/prettify.js"></script>
         <!--]-->
-<script type="text/javascript" src="/assets/index.js"></script>
 
     </body>
 </html>

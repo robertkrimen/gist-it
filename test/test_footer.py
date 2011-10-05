@@ -11,6 +11,7 @@ import gist_it
 class t( unittest2.TestCase ):
     def runTest( self ):
         self.assertEqual( gist_it.parse_footer( 0 ), '0' )
+        self.assertEqual( gist_it.parse_footer( '0' ), '0' )
         self.assertEqual( gist_it.parse_footer( False ), '0' )
         self.assertEqual( gist_it.parse_footer( True ), '1' )
         self.assertEqual( gist_it.parse_footer( None ), '1' )

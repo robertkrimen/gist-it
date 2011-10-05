@@ -20,7 +20,6 @@ $test->get( "$base" );
 $test->status_code_is( 200 );
 $test->body_like( qr/Description/ );
 $test->body_like( qr/Usage/ );
-$test->body_like( qr/Try it/ );
 
 $test->get( "$base/github/robertkrimen/gist-it-example/blob/master/README" );
 $test->status_code_is( 200 );

@@ -22,6 +22,7 @@ from gist_it import take_slice, parse_footer
 def render_gist_html( base, gist, document, footer = '1' ):
     if jinja2 is None:
         return
+    logging.info( footer )
     result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document, footer = footer )
     return result
 

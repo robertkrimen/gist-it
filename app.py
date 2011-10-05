@@ -47,12 +47,20 @@ class dispatch_index( RequestHandler ):
     def get( self ):
         self.render_template( 'index.jinja.html' )
 
+class dispatch_test( RequestHandler ):
+    def get( self ):
+        self.render_template( 'test.jinja.html', list = [
+            'github/robertkrimen/gist-it-example/raw/master/example.js?',
+            'github/robertkrimen/gist-it-example/raw/master/example.js?footer=0',
+        ] )
+
 class dispatch_gist_it( RequestHandler ):
     def get( self, location ):
         return gist_it_appengine.dispatch_gist_it( self, location )
 
 wsgi_application = webapp.WSGIApplication( [
     ( r'/', dispatch_index ),
+    ( r'/test', dispatch_test ),
     ( r'/xyzzy/(.*)', dispatch_gist_it ),
     ( r'(.*)', dispatch_gist_it ),
 ], debug=_DEBUG_ )
