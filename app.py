@@ -52,6 +52,10 @@ class dispatch_test( RequestHandler ):
         self.render_template( 'test.jinja.html', list = [
             'github/robertkrimen/gist-it-example/raw/master/example.js?',
             'github/robertkrimen/gist-it-example/raw/master/example.js?footer=0',
+            'github/robertkrimen/gist-it-example/raw/master/example.js?footer=noby',
+            'github/robertkrimen/gist-it-example/raw/master/example.js?slice=1:',
+            'github/robertkrimen/gist-it-example/raw/master/example.js?slice=0',
+            'github/robertkrimen/gist-it-example/raw/master/example.js?slice=-1',
         ] )
 
 class dispatch_gist_it( RequestHandler ):

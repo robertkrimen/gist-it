@@ -17,7 +17,7 @@
 
         {% for item in list %}
         <div class="section">
-            <a href="{{ dispatch.url_for( item + '&test=1' ) }}"><code>{{ item }}</code></a><br/>
+            <a style="padding-bottom: 4px; font-size: 11px;" href="{{ dispatch.url_for( item + '&test=1' ) }}"><code>{{ item }}</code></a><br/>
             <script src="{{ dispatch.url_for( item ) }}"></script>
         </div>
         {% endfor %}
