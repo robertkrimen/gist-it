@@ -51,10 +51,17 @@ class dispatch_test( RequestHandler ):
     def get( self ):
         self.render_template( 'test.jinja.html', list =
             map( lambda _: ( _, 'github/robertkrimen/gist-it-example/raw/master/example.js?' + _ ), [
+            # Standard
+            ''
+            # Without footer
             'footer=0',
+            # Footer without "by" mention
             'footer=noby',
+            # Partial file
             'slice=1:',
+            # First line of file
             'slice=0',
+            # Last line of file
             'slice=-1',
             ] )
         )

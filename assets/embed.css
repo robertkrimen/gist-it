@@ -18,6 +18,7 @@
     padding: .5em;
     color: #666;
     background-color: #eaeaea;
+    border-top: 1px solid #ddd;
 }
 
 .gist-it-gist .gist-file .gist-meta a,
@@ -42,7 +43,6 @@
       overflow: auto;
       word-wrap: normal;
       background-color: #f8f8ff;
-      border-bottom: 1px solid #ddd;
       font-size: 100%;
 }
 
