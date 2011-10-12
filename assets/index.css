@@ -42,6 +42,11 @@ a:hover {
     text-decoration: underline;
 }
 
+.subbar {
+    float: right;
+    margin-top: 6px;
+}
+
 /*[ Section ]*/
 
 .title {
