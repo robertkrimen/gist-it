@@ -50,7 +50,7 @@ class dispatch_index( RequestHandler ):
 class dispatch_test( RequestHandler ):
     def get( self ):
         self.render_template( 'test.jinja.html', list =
-            map( lambda _: ( _, 'github/robertkrimen/gist-it-example/raw/master/example.js?' + _ ), [
+            map( lambda _: ( _, 'github/robertkrimen/gist-it-example/raw/master/test.js?' + _ ), [
             # Standard
             ''
             # Without footer
@@ -58,7 +58,7 @@ class dispatch_test( RequestHandler ):
             # Footer without "by" mention
             'footer=noby',
             # Partial file
-            'slice=1:',
+            'slice=3:10',
             # First line of file
             'slice=0',
             # Last line of file
