@@ -104,31 +104,7 @@ $twim->body_like( qr{\QUnable to parse "/github/": Not a valid repository path?\
 diag $twim->response->content;
 
 for (qw[
-    960/960.css
-    960/reset.css
-    960/text.css
-    css3buttons/css3buttons-background.png
-    css3buttons/css3buttons-icon.png
-    css3buttons/css3buttons.css
     embed.css
-    index.js
-    jquery-ui/base/jquery-ui.css
-    jquery-ui/base/ui-bg_flat_0_aaaaaa_40x100.png
-    jquery-ui/base/ui-bg_flat_75_ffffff_40x100.png
-    jquery-ui/base/ui-bg_glass_55_fbf9ee_1x400.png
-    jquery-ui/base/ui-bg_glass_65_ffffff_1x400.png
-    jquery-ui/base/ui-bg_glass_75_dadada_1x400.png
-    jquery-ui/base/ui-bg_glass_75_e6e6e6_1x400.png
-    jquery-ui/base/ui-bg_glass_95_fef1ec_1x400.png
-    jquery-ui/base/ui-bg_highlight-soft_75_cccccc_1x100.png
-    jquery-ui/base/ui-icons_222222_256x240.png
-    jquery-ui/base/ui-icons_2e83ff_256x240.png
-    jquery-ui/base/ui-icons_454545_256x240.png
-    jquery-ui/base/ui-icons_888888_256x240.png
-    jquery-ui/base/ui-icons_cd0a0a_256x240.png
-    jquery-ui/jquery-ui.js
-    jquery.js
-    spinner.gif
     prettify/prettify.css
     prettify/prettify.js
 ]){
