@@ -34,26 +34,49 @@
             <h3>Usage</h3>
             <p>Take a github file url and prefix it with <code>http://gist-it.appspot.com</code> and embed the result within a <code>&lt;script&gt;</code> tag:</p>
 <pre class="prettyprint">&lt;script src="http://gist-it.appspot.com/http://github.com/$file"&gt;&lt;/script&gt;</pre>
-        <br>
         <p><code>$file</code> should follow the github repository pattern of <code>$user/$repository/raw/master/$path</code></p>
         <p><code>github/$file</code> is a shorthand for <code>http://github.com/$file</code> and works in the same way</p>
-        <p>You can also supply a <code>slice</code> parameter to show only a particular portion of the file:</p>
-        <blockquote>
-            <table>
-                <tr>
-                    <td class="code">slice=0:-2</td>
-                    <td>Show the first line up to and including the second to last line</td>
-                </tr>
-                <tr>
-                    <td class="code">slice=24:100</td>
-                    <td>Show lines 24 through 100</td>
-                </tr>
-                <tr>
-                    <td class="code">slice=0</td>
-                    <td>Show only the first line of the file</td>
-                </tr>
-            </table>
-        </blockquote>
+
+            <div class="option">
+                <span class="option-name">slice</span> (optional)<br>
+                <p>You can also supply a <code>slice</code> parameter to show only a particular portion of the file:</p>
+                <blockquote>
+                    <table>
+                        <tr>
+                            <td class="code">slice=0:-2</td>
+                            <td>Show the first line up to and including the second to last line</td>
+                        </tr>
+                        <tr>
+                            <td class="code">slice=24:100</td>
+                            <td>Show lines 24 through 100</td>
+                        </tr>
+                        <tr>
+                            <td class="code">slice=0</td>
+                            <td>Show only the first line of the file</td>
+                        </tr>
+                    </table>
+                </blockquote>
+            </div>
+
+            <div class="option">
+                <span class="option-name">footer</span> (optional)<br>
+                <p>Use the <code>footer</code> parameter to control the appearance of the footer:</p>
+                <blockquote>
+                    <table>
+                        <tr>
+                            <td class="code">
+                                footer=no<br>
+                                footer=0
+                            </td>
+                            <td>Hide the footer</td>
+                        </tr>
+                        <tr>
+                            <td class="code">footer=noby</td>
+                            <td>Show the footer without "<code>This gist brought to you by</code>"</td>
+                        </tr>
+                    </table>
+                </blockquote>
+            </div>
 
         </div>
 

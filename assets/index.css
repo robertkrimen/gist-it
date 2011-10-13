@@ -19,6 +19,14 @@ h1 {
     color: #777;
 }
 
+td.code {
+    font-family: monospace;
+}
+
+.option td {
+    padding: 0 6px 0 12px;
+}
+
 body {
     color: #333;
     font-family: 'Droid Sans', arial, serif;
@@ -75,6 +83,17 @@ a:hover {
 .section h3 {
     font-variant: small-caps;
     margin: 0;
+}
+
+.option {
+    margin: 10px 0;
+    padding: 10px 0 0 24px;
+}
+
+.option-name {
+    font-variant: normal;
+    font-family: monospace;
+    font-weight: bold;
 }
 
 /*[ Try It ]*/
