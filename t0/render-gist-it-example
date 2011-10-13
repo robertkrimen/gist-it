@@ -10,5 +10,8 @@ my $base = "http://localhost:8080";
 my $is_local = $base =~ m/localhost/;
 
 my $dwim = HTTP::DWIM->dwim( base => $base );
-my $response = $dwim->get( "/github/robertkrimen/gist-it-example/blob/master/example.js?test=json" );
-say $response->http_response->as_string;
+my $response = $dwim->get( "/github/robertkrimen/gist-it-example/blob/master/example.js?test=json" => sub {
+    my $data = shift;
+    say $data->{html};
+} );
+#say $response->http_response->as_string;

@@ -88,7 +88,7 @@ def dispatch_gist_it( dispatch, location ):
                     test = dispatch.request.get( 'test' )
                     if test:
                         if test == 'json':
-                            dispatch.response.headers['Content-Type'] = 'text/plain';
+                            dispatch.response.headers['Content-Type'] = 'application/json';
                             dispatch.response.out.write(simplejson.dumps({
                                 'gist': gist.value(),
                                 'content': gist_content,
