@@ -63,6 +63,10 @@ class dispatch_test( RequestHandler ):
             'slice=0',
             # Last line of file
             'slice=-1',
+            # Documentation
+            'slice=24:100',
+            'slice=0:-2',
+            'slice=0',
             ] )
         )
 
