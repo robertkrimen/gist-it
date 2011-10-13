@@ -19,14 +19,6 @@ h1 {
     color: #777;
 }
 
-td.code {
-    font-family: monospace;
-}
-
-.option td {
-    padding: 0 6px 0 12px;
-}
-
 body {
     color: #333;
     font-family: 'Droid Sans', arial, serif;
@@ -92,31 +84,18 @@ a:hover {
 
 .option-name {
     font-variant: normal;
-    font-family: monospace;
+    font-family: 'Bitstream Vera Sans Mono', 'Courier', monospace;
     font-weight: bold;
 }
 
-/*[ Try It ]*/
-
-#try-it-field {
-    font-size: 14px;
-    background: #ffc;
-    width: 75%;
-    padding: 4px 2px;
+.option td.code {
+    font-family: 'Bitstream Vera Sans Mono', 'Courier', monospace;
 }
 
-label {
-    font-variant: small-caps;
-    font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 4px;
-    display: block;
+.option td {
+    padding: 0 12px 8px 0;
 }
 
-.eg {
-    color: #aaa;
-    font-size: 13px;
-}
 
 /*[ Author ]*/
 
@@ -141,15 +120,4 @@ ul.author li a .name {
 
 ul.author li a:hover .name {
     color: #47a;
-}
-
-/*[ Feedback ]*/
-
-textarea#feedback-field {
-    width: 100%;
-    height: 90px;
-}
-
-#feedback-status {
-    color: #666;
 }
