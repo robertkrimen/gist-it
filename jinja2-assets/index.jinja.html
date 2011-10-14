@@ -34,12 +34,14 @@
             <h3>Usage</h3>
             <p>Take a github file url and prefix it with <code>http://gist-it.appspot.com</code> and embed the result within a <code>&lt;script&gt;</code> tag:</p>
 <pre class="prettyprint">&lt;script src="http://gist-it.appspot.com/http://github.com/$file"&gt;&lt;/script&gt;</pre>
-        <p><code>$file</code> should follow the github repository pattern of <code>$user/$repository/raw/master/$path</code></p>
-        <p><code>github/$file</code> is a shorthand for <code>http://github.com/$file</code> and works in the same way</p>
-
+            <ol>
+                <li><code>$file</code> should follow the github repository pattern of <code>$user/$repository/raw/master/$path</code>
+                <li><code>github/$file</code> is a shorthand for <code>http://github.com/$file</code> and works in the same way
+            </ol>
+            <p>Additional customization is available by query string:</p>
             <div class="option">
                 <span class="option-name">slice</span> (optional)<br>
-                <p>You can also supply a <code>slice</code> parameter to show only a particular portion of the file:</p>
+                <p>Supply a <code>slice</code> parameter to show only a particular portion of the file:</p>
                 <blockquote>
                     <table>
                         <tr>
@@ -82,8 +84,10 @@
 
         <div class="section">
             <h3>Example</h3>
-            <blockquote><code>github/robertkrimen/gist-it-example/raw/master/example.js</code></blockquote>
-            
+            <center>
+                <code>github/robertkrimen/gist-it-example/raw/master/example.js</code>
+                <div style="margin: 6px 0 10px 0;">&darr;</div>
+            </center>
 <!-- { -->
 <div class="gister-gist">
 <div class="gist-file">

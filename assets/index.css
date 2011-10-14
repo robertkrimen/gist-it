@@ -9,10 +9,9 @@
 pre.prettyprint {
     overflow: visible;
     font-size: 13px;
-    padding: 0 4px;
     color: #666;
     background-color: #eaeaea;
-    margin-bottom: 4px;
+    padding: 0.25em 0.5em 0.5em;
 }
 
 h1 {
@@ -22,11 +21,15 @@ h1 {
 body {
     color: #333;
     font-family: 'Droid Sans', arial, serif;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-p {
-    margin-bottom: 6px;
+pre, p {
+    margin: 10px 0;
+}
+
+blockquote {
+    margin: 10px 20px;
 }
 
 .monospace {
@@ -67,14 +70,13 @@ a:hover {
 }
 
 .section {
-    margin: 16px auto;
-    margin-top: 0;
+    margin: 0 auto 20px auto;
     width: 840px;
 }
 
 .section h3 {
     font-variant: small-caps;
-    margin: 0;
+    margin: 10px 0;
 }
 
 .option {
