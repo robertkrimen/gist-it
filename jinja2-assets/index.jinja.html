@@ -34,11 +34,12 @@
             <h3>Usage</h3>
             <p>Take a github file url and prefix it with <code>http://gist-it.appspot.com</code> and embed the result within a <code>&lt;script&gt;</code> tag:</p>
 <pre class="prettyprint">&lt;script src="http://gist-it.appspot.com/http://github.com/$file"&gt;&lt;/script&gt;</pre>
+<div class="clear"></div>
             <ol>
-                <li><code>$file</code> should follow the github repository pattern of <code>$user/$repository/raw/master/$path</code>
-                <li><code>github/$file</code> is a shorthand for <code>http://github.com/$file</code> and works in the same way
+                <li><code>$file</code> should follow the github repository pattern of <b><code>$user/$repository/raw/master/$path</code></b>
+                <li><b><code>github/$file</code></b> is a shorthand for <code>http://github.com/$file</code> and works in the same way
             </ol>
-            <p>Additional customization is available by query string:</p>
+            <p>Additional customization is possible by including one or more of the following in the query string:</p>
             <div class="option">
                 <span class="option-name">slice</span> (optional)<br>
                 <p>Supply a <code>slice</code> parameter to show only a particular portion of the file:</p>
@@ -74,7 +75,7 @@
                         </tr>
                         <tr>
                             <td class="code">footer=noby</td>
-                            <td>Show the footer without "<code>This gist brought to you by</code>"</td>
+                            <td>Show the footer without "<code>This Gist by gist-it</code>"</td>
                         </tr>
                     </table>
                 </blockquote>
@@ -84,10 +85,9 @@
 
         <div class="section">
             <h3>Example</h3>
-            <center>
-                <code>github/robertkrimen/gist-it-example/raw/master/example.js</code>
-                <div style="margin: 6px 0 10px 0;">&darr;</div>
-            </center>
+            <!--<center>-->
+            <!--    <div style="margin: 6px 0 10px 0;">&darr;</div>-->
+            <!--</center>-->
 <!-- { -->
 <div class="gister-gist">
 <div class="gist-file">
@@ -112,6 +112,13 @@
 </div>
 <!-- } -->
 
+
+        </div>
+
+        <div class="section">
+            <h3>Example Source</h3>
+<pre class="prettyprint">&lt;script src="{{ dispatch.url_for( '/github/robertkrimen/gist-it-example/blob/master/example.js' ) }}"&gt;&lt;/script&gt;</pre>
+<div class="clear"></div>
         </div>
 
         <div class="section">

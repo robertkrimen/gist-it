@@ -7,11 +7,12 @@
 }
 
 pre.prettyprint {
-    overflow: visible;
+    float: left;
     font-size: 13px;
     color: #666;
     background-color: #eaeaea;
     padding: 0.25em 0.5em 0.5em;
+    margin: 0 0 0 0;
 }
 
 h1 {
@@ -24,9 +25,10 @@ body {
     font-size: 14px;
 }
 
-pre, p {
+p {
     margin: 10px 0;
 }
+
 
 blockquote {
     margin: 10px 20px;
