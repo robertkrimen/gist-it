@@ -19,7 +19,7 @@ class t( unittest2.TestCase ):
         self.assertEqual( gist_it.parse_footer( 'yes  ' ), '1' )
         self.assertEqual( gist_it.parse_footer( '  no' ), '0' )
         self.assertEqual( gist_it.parse_footer( 'none ' ), '0' )
-        self.assertEqual( gist_it.parse_footer( ' noby ' ), 'noby' )
+        self.assertEqual( gist_it.parse_footer( ' minimal ' ), 'minimal' )
 
 if __name__ == '__main__':
     unittest2.main()

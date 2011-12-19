@@ -40,7 +40,7 @@ $test->body_like( qr{\Q<div class="gist-file">\E} );
 $test->body_like( qr{\Q<div class="gist-data">\E} );
 $test->body_like( qr!\Q<pre class="prettyprint">function Xyzzy() {\n    return "Nothing happens";\n}\n</pre>\E! );
 $test->body_like( qr{\Q<div class="gist-meta">\E} );
-$test->body_like( qr{\Q<span><a href="https://github.com/robertkrimen/gist-it-example/blob/master/example.js">This Gist</a> by <a href="$base">gist-it</a></span>\E} );
+$test->body_like( qr{\Q<span><a href="https://github.com/robertkrimen/gist-it-example/blob/master/example.js">This Gist</a> brought to you by <a href="$base">gist-it</a>.</span>\E} );
 $test->body_like( qr{\Q<span style="float: right; color: #369;"><a href="https://github.com/robertkrimen/gist-it-example/raw/master/example.js">view raw</a></span>\E} );
 $test->body_like( qr{\Q<span style="float: right; margin-right: 8px;">\E\s*\\n\s*\Q<a style="color: rgb(102, 102, 102);" href="https://github.com/robertkrimen/gist-it-example/blob/master/example.js">example.js</a></span\E} );
 

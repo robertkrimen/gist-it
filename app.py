@@ -55,8 +55,8 @@ class dispatch_test( RequestHandler ):
             ''
             # Without footer
             'footer=0',
-            # Footer without "by" mention
-            'footer=noby',
+            # Footer without "brought to you by" mention
+            'footer=minimal',
             # Partial file
             'slice=3:10',
             # First line of file

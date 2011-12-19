@@ -19,7 +19,7 @@ def parse_footer( footer_option ):
         return '1'
     elif footer_option == '0' or footer_option == 'false' or footer_option == 'none' or footer_option == 'no':
         return '0'
-    elif footer_option == 'noby':
+    elif footer_option == 'minimal':
         return footer_option
     else:
         return '1'
