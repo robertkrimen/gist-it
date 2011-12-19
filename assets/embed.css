@@ -24,7 +24,7 @@
 .gist-it-gist .gist-file .gist-meta a,
 .gister-gist .gist-file .gist-meta a {
     color: #369;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .gist-it-gist .gist-file .gist-meta a:visited,
@@ -35,7 +35,7 @@
 
 .gist-it-gist .gist-file .gist-meta a:hover,
 .gister-gist .gist-file .gist-meta a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .gist-it-gist .gist-file .gist-data,
