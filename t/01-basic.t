@@ -35,7 +35,7 @@ $test->body_like( qr{\Qdocument.write( '<script type="text/javascript" src="$bas
 $test->body_like( qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/embed.css"/>' )\E} );
 $test->body_like( qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/prettify/prettify.css"/>' )\E} );
 $test->body_like( qr{\Qdocument.write( '<script type="text/javascript">prettyPrint();</script>' )\E} );
-$test->body_like( qr{\Q<div class="gister-gist">\E} );
+$test->body_like( qr{\Q<div class="gist-it-gist">\E} );
 $test->body_like( qr{\Q<div class="gist-file">\E} );
 $test->body_like( qr{\Q<div class="gist-data">\E} );
 $test->body_like( qr!\Q<pre class="prettyprint">function Xyzzy() {\n    return "Nothing happens";\n}\n</pre>\E! );
