@@ -105,13 +105,18 @@ $test->status_code_is( 500 );
 $test->body_like( qr{\QUnable to parse "/github/": Not a valid repository path?\E} );
 diag $test->response->decoded_content;
 
-for (qw[
-    embed.css
-    prettify/prettify.css
-    prettify/prettify.js
-]){
-    $test->get( "$base/assets/$_" );
-    $test->status_code_is( 200, $_ );
+for (
+    [ 'embed.css' => { size => 1358 } ],
+    [ 'prettify/prettify.css' => { size => 1000 } ],
+    [ 'prettify/prettify.js' => { size => 58968 } ],
+){
+    my $asset = $_->[0];
+    my $expect = $_->[1];
+    $test->get( "$base/assets/$asset" );
+    $test->status_code_is( 200, $asset );
+    my $size = length( $test->response->decoded_content );
+    cmp_ok( $size, '>', 0 );
+    cmp_ok( abs( $size - $expect->{size} ), '<', 128 );
 }
 
 $test->get( "$base/xyzzy/github/robertkrimen/gist-it-example/blob/master" );
