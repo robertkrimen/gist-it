@@ -119,12 +119,16 @@ for (
     cmp_ok( abs( $size - $expect->{size} ), '<', 128 );
 }
 
-$test->get( "$base/xyzzy/github/robertkrimen/gist-it-example/blob/master" );
-$test->status_code_is( 500 );
-$test->body_like( qr{\QUnable to parse "github/robertkrimen/gist-it-example/blob/master": Not a valid repository path?\E} );
+SKIP: {
+    skip "Skip /xyzzy testing", 0 if $ENV{ SKIP_XYZZY };
 
-$test->get( "$base/xyzzy/github/miyagawa/CPAN-Any/blob/master/README" );
-$test->status_code_is( 200 );
-$test->body_like( qr/CPAN::Any/ );
+    $test->get( "$base/xyzzy/github/robertkrimen/gist-it-example/blob/master" );
+    $test->status_code_is( 500 );
+    $test->body_like( qr{\QUnable to parse "github/robertkrimen/gist-it-example/blob/master": Not a valid repository path?\E} );
+
+    $test->get( "$base/xyzzy/github/miyagawa/CPAN-Any/blob/master/README" );
+    $test->status_code_is( 200 );
+    $test->body_like( qr/CPAN::Any/ );
+}
 
 done_testing;
