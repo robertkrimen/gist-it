@@ -19,10 +19,10 @@ from versioned_memcache import memcache
 import gist_it
 from gist_it import take_slice
 
-def render_gist_html( base, gist, document, footer = '1' ):
+def render_gist_html( base, gist, document ):
     if jinja2 is None:
         return
-    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document, footer = footer )
+    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document )
     return result
 
 def render_gist_js( base, gist, gist_html  ):
@@ -78,7 +78,7 @@ def dispatch_gist_it( dispatch, location ):
                     return
                 else:
                     gist_content = take_slice( response.content, gist.start_line, gist.end_line )
-                    gist_html = str( render_gist_html( base, gist, gist_content, footer = gist.footer ) ).strip()
+                    gist_html = str( render_gist_html( base, gist, gist_content ) ).strip()
                     callback = dispatch.request.get( 'callback' );
                     if callback != '':
                         result = render_gist_js_callback( callback, gist, gist_html )
