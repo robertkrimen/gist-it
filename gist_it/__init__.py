@@ -24,6 +24,20 @@ def parse_footer( footer_option ):
     else:
         return '1'
 
+def parse_style( style_option ):
+    if style_option is None or style_option is True:
+        return '1'
+    elif style_option is False:
+        return '0'
+
+    style_option = str( style_option ).lower().strip()
+    if style_option == '1' or style_option == '' or style_option == 'true':
+        return '1'
+    elif style_option == '0' or style_option == 'false' or style_option == 'none' or style_option == 'no':
+        return '0'
+    else:
+        return '1'
+
 def parse_slice( slice_option ):
     if slice_option is None:
         return ( 0, 0 )
