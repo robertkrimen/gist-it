@@ -17,7 +17,7 @@ from google.appengine.ext import webapp
 from versioned_memcache import memcache
 
 import gist_it
-from gist_it import take_slice, parse_footer
+from gist_it import take_slice
 
 def render_gist_html( base, gist, document, footer = '1' ):
     if jinja2 is None:
@@ -48,8 +48,9 @@ def dispatch_gist_it( dispatch, location ):
         else:
             slice_option = dispatch.request.get( 'slice' )
             footer_option = dispatch.request.get( 'footer' )
+            style_option = dispatch.request.get( 'style' )
 
-            gist = gist_it.Gist.parse( location, slice_option = slice_option, footer_option = footer_option )
+            gist = gist_it.Gist.parse( location, slice_option = slice_option, footer_option = footer_option, style_option = style_option )
             if not gist:
                 dispatch.response.set_status( 500 )
                 dispatch.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( location ) )

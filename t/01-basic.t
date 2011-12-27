@@ -131,4 +131,13 @@ SKIP: {
     $test->body_like( qr/CPAN::Any/ );
 }
 
+$test->get( "$base/github/robertkrimen/gist-it-example/blob/master/example.js?style=0" );
+$test->status_code_is( 200 );
+
+$test->body_like( qr/\Qif ( 'prettyPrint' in window ) {} else {\E/ );
+$test->body_like( qr{\Qdocument.write( '<script type="text/javascript" src="$base/assets/prettify/prettify.js"></script>' )\E} );
+unlike( $test->response->decoded_content, qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/embed.css"/>' )\E} );
+$test->body_like( qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/prettify/prettify.css"/>' )\E} );
+$test->body_like( qr{\Qdocument.write( '<script type="text/javascript">prettyPrint();</script>' )\E} );
+
 done_testing;

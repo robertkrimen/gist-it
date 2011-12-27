@@ -80,7 +80,8 @@ class Gist:
             'raw_path', 'raw_url', 
             'user_repository', 'user_repository_branch_path', 'user_repository_url',
             'start_line', 'end_line',
-            'footer'
+            'footer',
+            'style',
         ]
 
     @classmethod
@@ -91,7 +92,7 @@ class Gist:
         return match
 
     @classmethod
-    def parse( self, location, slice_option = None, footer_option = None ):
+    def parse( self, location, slice_option = None, footer_option = None, style_option = None ):
         match = self.match( location )
         if not match:
             return None
@@ -128,6 +129,8 @@ class Gist:
         parse[ 'end_line' ] = slice_option[1]
 
         parse[ 'footer' ] = parse_footer( footer_option )
+
+        parse[ 'style' ] = parse_style( style_option )
 
         return Gist( **parse )
 

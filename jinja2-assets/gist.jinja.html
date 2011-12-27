@@ -3,9 +3,9 @@
     <div class="gist-data">
         <pre class="prettyprint">{{ cgi.escape( document ) }}</pre>
     </div>
-    {% if footer != '0' %}
+    {% if gist.footer != '0' %}
     <div class="gist-meta">
-        {% if footer != 'minimal' %}
+        {% if gist.footer != 'minimal' %}
         <span><a href="{{ gist.blob_url }}">This Gist</a> brought to you by <a href="{{ base }}">gist-it</a>.</span>
         {% endif %}
         <span style="float: right; color: #369;"><a href="{{ gist.raw_url }}">view raw</a></span>
