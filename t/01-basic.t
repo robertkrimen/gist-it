@@ -120,7 +120,7 @@ for (
 }
 
 SKIP: {
-    skip "Skip /xyzzy testing", 0 if $ENV{ SKIP_XYZZY };
+    skip "Skip /xyzzy testing", 0 if $ENV{ TEST_GIST_IT_APPSPOT };
 
     $test->get( "$base/xyzzy/github/robertkrimen/gist-it-example/blob/master" );
     $test->status_code_is( 500 );
