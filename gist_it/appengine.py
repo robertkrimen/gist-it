@@ -74,8 +74,9 @@ def dispatch_gist_it( dispatch, location ):
         slice_option = dispatch.request.get( 'slice' )
         footer_option = dispatch.request.get( 'footer' )
         style_option = dispatch.request.get( 'style' )
+        highlight_option = dispatch.request.get( 'highlight' )
 
-        gist = gist_it.Gist.parse( location, slice_option = slice_option, footer_option = footer_option, style_option = style_option )
+        gist = gist_it.Gist.parse( location, slice_option = slice_option, footer_option = footer_option, style_option = style_option, highlight_option = highlight_option )
         if not gist:
             dispatch.response.set_status( 500 )
             dispatch.response.out.write( "Unable to parse \"%s\": Not a valid repository path?" % ( location ) )

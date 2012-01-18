@@ -151,4 +151,26 @@ $test->get( "$base/github/robertkrimen/gist-it-example/blob/master/example.js?st
 $test->status_code_is( 200 );
 like( $test->response->decoded_content, qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/embed.css"/>' )\E} );
 
+$test->get( "$base/github/robertkrimen/gist-it-example/blob/master/example.js?highlight=0" );
+$body = $test->response->decoded_content;
+$test->status_code_is( 200 );
+unlike( $body, qr/\Qif ( 'prettyPrint' in window ) {} else {\E/ );
+unlike( $body, qr{\Qdocument.write( '<script type="text/javascript" src="$base/assets/prettify/prettify.js"></script>' )\E} );
+like( $body, qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/embed.css"/>' )\E} );
+unlike( $body, qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/prettify/prettify.css"/>' )\E} );
+unlike( $body, qr{\Qdocument.write( '<script type="text/javascript">prettyPrint();</script>' )\E} );
+
+$test->get( "$base/github/robertkrimen/gist-it-example/blob/master/example.js?highlight=1" );
+$body = $test->response->decoded_content;
+$test->status_code_is( 200 );
+like( $body, qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/prettify/prettify.css"/>' )\E} );
+like( $body, qr{\Qdocument.write( '<script type="text/javascript">prettyPrint();</script>' )\E} );
+
+$test->get( "$base/github/robertkrimen/gist-it-example/blob/master/example.js?highlight=deferred-prettify" );
+$body = $test->response->decoded_content;
+$test->status_code_is( 200 );
+unlike( $body, qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/prettify/prettify.css"/>' )\E} );
+unlike( $body, qr{\Qdocument.write( '<script type="text/javascript">prettyPrint();</script>' )\E} );
+unlike( $body, qr{\Qdocument.write( '<link rel="stylesheet" href="$base/assets/prettify/prettify.css"/>' )\E} );
+like( $body, qr!\Q<pre class="prettyprint">function Xyzzy() {\n    return "Nothing happens";\n}\n</pre>\E! );
 done_testing;
