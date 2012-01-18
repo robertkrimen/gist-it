@@ -49,28 +49,7 @@ class dispatch_index( RequestHandler ):
 
 class dispatch_test( RequestHandler ):
     def get( self ):
-        self.render_template( 'test.jinja.html', list =
-            map( lambda _: ( _, 'github/robertkrimen/gist-it-example/raw/master/test.js?' + _ ), [
-            # Standard
-            ''
-            # Without footer
-            'footer=0',
-            # Footer without "brought to you by" mention
-            'footer=minimal',
-            # Partial file
-            'slice=3:10',
-            # First line of file
-            'slice=0',
-            # Last line of file
-            'slice=-1',
-            # With no style request
-            'style=0',
-            # Documentation
-            'slice=24:100',
-            'slice=0:-2',
-            'slice=0',
-            ] )
-        )
+        return gist_it_appengine.dispatch_test( self )
 
 class dispatch_gist_it( RequestHandler ):
     def get( self, location ):
