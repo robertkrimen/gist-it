@@ -75,6 +75,7 @@ def dispatch_gist_it( dispatch, location ):
         footer_option = dispatch.request.get( 'footer' )
         style_option = dispatch.request.get( 'style' )
         highlight_option = dispatch.request.get( 'highlight' )
+        test = dispatch.request.get( 'test' )
 
         gist = gist_it.Gist.parse( location, slice_option = slice_option, footer_option = footer_option, style_option = style_option, highlight_option = highlight_option )
         if not gist:
@@ -112,7 +113,6 @@ def dispatch_gist_it( dispatch, location ):
                     result = render_gist_js( base, gist, gist_html )
                 result = str( result ).strip()
                 data = result
-                test = dispatch.request.get( 'test' )
                 if test:
                     if test == 'json':
                         dispatch.response.headers['Content-Type'] = 'application/json';
