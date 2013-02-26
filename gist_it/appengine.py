@@ -61,11 +61,10 @@ def dispatch_test( dispatch ):
 
 # dispatch == RequestHandler
 def dispatch_test0( dispatch ):
-    dispatch.render_template( 'test.jinja.html', list =
-        map( lambda _: ( _, 'github/whittle/node-coffee-heroku-tutorial/raw/eb587185509ec8c2e728067d49f4ac2d5a67ec09/app.js?' + _ ), [
-        # Standard
-        ''
-        ] )
+    dispatch.render_template( 'test.jinja.html', list = [
+        ( '', 'github/whittle/node-coffee-heroku-tutorial/raw/eb587185509ec8c2e728067d49f4ac2d5a67ec09/app.js' ),
+        ( '', 'github/horstjens/ThePythonGameBook/blob/master/pygame/015_more_sprites.py' ),
+        ]
     )
 
 # dispatch == RequestHandler
