@@ -1,6 +1,10 @@
 import re
 import posixpath
 import urlparse
+import cgi
+
+def cgi_escape( content ):
+    return cgi.escape(content).encode('ascii', 'xmlcharrefreplace')
 
 def match( location ):
     return Gist.match( location )

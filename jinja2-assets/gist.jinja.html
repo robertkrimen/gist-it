@@ -2,9 +2,9 @@
 <div class="gist-file">
     <div class="gist-data">
         {% if gist.highlight == 'prettify' or gist.highlight == 'deferred-prettify' %}
-        <pre class="prettyprint">{{ cgi.escape( document ) }}</pre>
+        <pre class="prettyprint">{{ cgi_escape( document ) }}</pre>
         {% else %}
-        <pre>{{ cgi.escape( document ) }}</pre>
+        <pre>{{ cgi_escape( document ) }}</pre>
         {% endif %}
     </div>
     {% if gist.footer != '0' %}

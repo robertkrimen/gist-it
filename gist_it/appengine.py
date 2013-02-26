@@ -17,12 +17,12 @@ from google.appengine.ext import webapp
 from versioned_memcache import memcache
 
 import gist_it
-from gist_it import take_slice
+from gist_it import take_slice, cgi_escape
 
 def render_gist_html( base, gist, document ):
     if jinja2 is None:
         return
-    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi = cgi, base = base, gist = gist, document = document )
+    result = jinja2.get_template( 'gist.jinja.html' ).render( cgi_escape = cgi_escape, base = base, gist = gist, document = document )
     return result
 
 def render_gist_js( base, gist, gist_html  ):
@@ -56,6 +56,15 @@ def dispatch_test( dispatch ):
         'slice=24:100',
         'slice=0:-2',
         'slice=0',
+        ] )
+    )
+
+# dispatch == RequestHandler
+def dispatch_test0( dispatch ):
+    dispatch.render_template( 'test.jinja.html', list =
+        map( lambda _: ( _, 'github/whittle/node-coffee-heroku-tutorial/raw/eb587185509ec8c2e728067d49f4ac2d5a67ec09/app.js?' + _ ), [
+        # Standard
+        ''
         ] )
     )
 
@@ -104,7 +113,10 @@ def dispatch_gist_it( dispatch, location ):
                 dispatch.response.out.write( "Unable to fetch \"%s\": (%i)" % ( gist.raw_url, response.status_code ) )
                 return
             else:
-                gist_content = take_slice( response.content, gist.start_line, gist.end_line )
+                # I believe GitHub always returns a utf-8 encoding, so this should be safe
+                response_content = response.content.decode('utf-8')
+
+                gist_content = take_slice( response_content, gist.start_line, gist.end_line )
                 gist_html = str( render_gist_html( base, gist, gist_content ) ).strip()
                 callback = dispatch.request.get( 'callback' );
                 if callback != '':

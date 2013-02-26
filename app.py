@@ -51,6 +51,10 @@ class dispatch_test( RequestHandler ):
     def get( self ):
         return gist_it_appengine.dispatch_test( self )
 
+class dispatch_test0( RequestHandler ):
+    def get( self ):
+        return gist_it_appengine.dispatch_test0( self )
+
 class dispatch_gist_it( RequestHandler ):
     def get( self, location ):
         return gist_it_appengine.dispatch_gist_it( self, location )
@@ -58,6 +62,7 @@ class dispatch_gist_it( RequestHandler ):
 wsgi_application = webapp.WSGIApplication( [
     ( r'/', dispatch_index ),
     ( r'/test', dispatch_test ),
+    ( r'/test0', dispatch_test0 ),
     ( r'/xyzzy/(.*)', dispatch_gist_it ),
     ( r'(.*)', dispatch_gist_it ),
 ], debug=_DEBUG_ )

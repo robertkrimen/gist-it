@@ -9,13 +9,12 @@ use local::lib 't/p5';
 use Test::Most;
 use Test::HTTP;
 
-my $TEST = $ENV{ TEST } // 'local';
-$TEST = 'local' unless $ENV{ TEST_GIST_IT_APPSPOT };
+my $TEST = $ENV{ TEST_GIST_IT_APPSPOT } // 'local';
 
 my $base;
 if      ( $TEST eq 'local' ) { $base = "http://localhost:8080" }
 elsif   ( $TEST eq 0 )       { $base = "http://gist-it.appspot.com" }
-else                         { $base = "http://$_.gist-it.appspot.com" }
+else                         { $base = "http://$TEST.gist-it.appspot.com" }
 
 my $is_local = $base =~ m/localhost/;
 diag "\$base = $base";
