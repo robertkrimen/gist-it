@@ -88,6 +88,9 @@ def take_slice( content, start_line = None, end_line = None ):
     if (end_line is None):
         return content.splitlines()[start_line]
 
+    if (end_line > 0):
+        end_line += 1
+
     return '\n'.join(content.splitlines()[start_line:end_line])
 
 class Gist:
@@ -101,6 +104,7 @@ class Gist:
             'user_repository', 'user_repository_branch_path', 'user_repository_url',
             'start_line', 'end_line',
             'footer', 'style', 'highlight',
+            'filename',
         ]
 
     @classmethod
@@ -150,6 +154,8 @@ class Gist:
         parse[ 'footer' ] = parse_footer( footer_option )
         parse[ 'style' ] = parse_style( style_option )
         parse[ 'highlight' ] = parse_highlight( highlight_option )
+
+        parse[ 'filename' ] = splitpath[-1]
 
         return Gist( **parse )
 

@@ -1,144 +1,150 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head><title>gist-it.appspot.com - Embed files from a github repository like a gist</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <!--collate:css[-->
-        <link rel="stylesheet" href="/assets/html5-boilerplate/style.css" />
+        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css"/>
+        <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+        #try-it-modal {
+            width: 768px; 
+            margin-left: -384px;
+        }
+        </style>
+        <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap-responsive.css"/>
         <link rel="stylesheet" href="/assets/prettify/prettify.css" />
         <link rel="stylesheet" href="/assets/embed.css"/>
-        <!--]-->
-        <link rel="stylesheet" href="/assets/index.css" />
     {% block head %}
     {% endblock %}
     </head>
     <body>
-
-        <div class="title section">
-            <div>
-                <span class="headline"><a href="{{ dispatch.url_for() }}">gist-it.appspot.com</a></span>
-                <span class="subtitle"> &nbsp;&ndash;&nbsp; Embed files from a github repository like a gist</span>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+            <a class="brand" href="{{ dispatch.url_for() }}">gist-it</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a id="try-it" href="#">Try It</a></li>
+                </ul>
             </div>
-            <div class="subbar">
-            {% block subbar %}
-            {% endblock %}
             </div>
         </div>
-
-        <div class="section">
-            <h3>Description</h3>
-            <p><a href="{{ dispatch.url_for() }}">gist-it.appspot.com</a> lets you take a file from your GitHub repository and embed it into any webpage, just like a gist</p>
-            <p>Syntax highlighting by <a href="http://google-code-prettify.googlecode.com">google-code-prettify</a></p>
         </div>
 
-        <div class="section">
-            <h3>Usage</h3>
-            <p>Take a github file url and prefix it with <code>http://gist-it.appspot.com</code> and embed the result within a <code>&lt;script&gt;</code> tag:</p>
-<pre class="prettyprint">&lt;script src="http://gist-it.appspot.com/http://github.com/$file"&gt;&lt;/script&gt;</pre>
-<div class="clear"></div>
-            <ol>
-                <li><code>$file</code> should follow the github repository pattern of <b><code>$user/$repository/raw/master/$path</code></b>
-                <li><b><code>github/$file</code></b> is a shorthand for <code>http://github.com/$file</code> and works in the same way
-            </ol>
-            <p>Additional customization is possible by including one or more of the following in the query string:</p>
-            <div class="option">
-                <span class="option-name">slice</span> (optional)<br>
-                <p>Supply a <code>slice</code> parameter to show only a particular portion of the file:</p>
-                <blockquote>
-                    <table>
-                        <tr>
-                            <td class="code">slice=0:-2</td>
-                            <td>Show the first line up to and including the second to last line</td>
-                        </tr>
-                        <tr>
-                            <td class="code">slice=24:100</td>
-                            <td>Show lines 24 through 100</td>
-                        </tr>
-                        <tr>
-                            <td class="code">slice=0</td>
-                            <td>Show only the first line of the file</td>
-                        </tr>
-                    </table>
-                </blockquote>
-            </div>
+        <div class="container">
+            <h3>SYNOPSIS</h3>
+            <div class="synopsis">
+<pre class="prettyprint lang-html"># Embed the file robertkrimen/gist-it-example/example.js
+&lt;script src="http://gist-it.appspot.com/github/robertkrimen/gist-it-example/blob/master/example.js"&gt;&lt;/script&gt;
 
-            <div class="option">
-                <span class="option-name">footer</span> (optional)<br>
-                <p>Use the <code>footer</code> parameter to control the appearance of the footer:</p>
-                <blockquote>
-                    <table>
-                        <tr>
-                            <td class="code">
-                                footer=no<br>
-                                footer=0
-                            </td>
-                            <td>Hide the footer</td>
-                        </tr>
-                        <tr>
-                            <td class="code">footer=minimal</td>
-                            <td>Show the footer without "<code>This Gist brought to you by gist-it.</code>"</td>
-                        </tr>
-                    </table>
-                </blockquote>
-            </div>
+# Embed without a footer
+&lt;script src="http://gist-it.appspot.com/github/robertkrimen/gist-it-example/blob/master/example.js?footer=0"&gt;&lt;/script&gt;
 
-        </div>
+# Show only the first and second line
+&lt;script src="http://gist-it.appspot.com/github/robertkrimen/gist-it-example/blob/master/example.js?slice=0:1"&gt;&lt;/script&gt;
+</pre>
 
-        <div class="section">
-            <h3>Example</h3>
-            <!--<center>-->
-            <!--    <div style="margin: 6px 0 10px 0;">&darr;</div>-->
-            <!--</center>-->
-<!-- { -->
+<!-- example{ -->
 <div class="gist-it-gist">
 <div class="gist-file">
     <div class="gist-data">
-        <pre class="prettyprint">function Xyzzy() {
-    return "Nothing happens";
-}
-</pre>
+        
+<pre style="" class="prettyprint prettyprinted"><span class="kwd">function</span><span class="pln"> </span><span class="typ">Xyzzy</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"Nothing happens"</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+        
     </div>
     
     <div class="gist-meta">
         
-        <span><a href="https://github.com/robertkrimen/gist-it-example/blob/master/example.js">This Gist</a> by <a href="http://localhost:8080">gist-it</a></span>
+        <span><a href="https://github.com/robertkrimen/gist-it-example/blob/master/example.js">This Gist</a> brought to you by <a href="http://localhost:8080">gist-it</a>.</span>
         
         <span style="float: right; color: #369;"><a href="https://github.com/robertkrimen/gist-it-example/raw/master/example.js">view raw</a></span>
         <span style="float: right; margin-right: 8px;">
             <a style="color: rgb(102, 102, 102);" href="https://github.com/robertkrimen/gist-it-example/blob/master/example.js">example.js</a></span>
-            <!-- Generated by: http://localhost:8080 -->
     </div>
     
 </div>
 </div>
 <!-- } -->
 
+            </div>
 
-        </div>
+            <h3>DESCRIPTION</h3>
+            <p><a href="{{ dispatch.url_for() }}">gist-it</a> lets you take a file from your GitHub repository and embed it into any webpage, just like a gist</p>
+            <p>Syntax highlighting by <a href="http://google-code-prettify.googlecode.com">google-code-prettify</a></p>
 
-        <div class="section">
-            <h3>Example Source</h3>
-<pre class="prettyprint">&lt;script src="{{ dispatch.url_for( '/github/robertkrimen/gist-it-example/blob/master/example.js' ) }}"&gt;&lt;/script&gt;</pre>
-<div class="clear"></div>
-        </div>
+            <h3>USAGE</h3>
 
-        <div class="section">
-            <h3>Source</h3>
+            <p>Specify the <code>slice</code> parameter to show only a particular portion of the file:</p>
+            <table class="table">
+                <tr>
+                    <td class="code">slice=1:</td>
+                    <td>Show from the second line on (skip the first line)</td>
+                </tr>
+                <tr>
+                    <td class="code">slice=0:-1</td>
+                    <td>Show the first line up to and including the second-to-last line</td>
+                </tr>
+                <tr>
+                    <td class="code">slice=24:101</td>
+                    <td>Show lines 24 through 101</td>
+                </tr>
+                <tr>
+                    <td class="code">slice=0</td>
+                    <td>Show only the first line of the file</td>
+                </tr>
+            </table>
+
+            <p>Use the <code>footer</code> parameter to control the appearance of the footer:</p>
+            <table class="table">
+                <tr>
+                    <td class="code">
+                        footer=no<br>
+                        footer=0
+                    </td>
+                    <td>Hide the footer</td>
+                </tr>
+                <tr>
+                    <td class="code">footer=minimal</td>
+                    <td>Show the footer without this leading part: <code>This Gist brought to you by gist-it.</code></td>
+                </tr>
+            </table>
+
+            <h3>SOURCE</h3>
             <p><a href="http://github.com/robertkrimen/gist-it">http://github.com/robertkrimen/gist-it</a></p>
-        </div>
 
-        <div class="section">
-            <h3>Author</h3>
+            <h3>AUTHOR</h3>
             <a href="http://github.com/robertkrimen">Robert Krimen</a>
             &lt;<a href="mailto:robertkrimen@gmail.com">robertkrimen@gmail</a>&gt;
+
+            <br/>
+            <br/>
+
         </div>
 
-    </div>
+        <div id="try-it-modal" class="modal hide fade" tabindex="-1">
+            <div class="modal-body">
+                <div style="margin: 0 auto;">
+                    <form action="#">
+                        <input class="input-block-level" type="text" value="{{ "http://github.com/robertkrimen/gist-it-example/blob/master/example.js" | escape }}">
+                    </form>
+                    <div class="script">
+                    </div>
+                    <div class="output"></div>
+                </div>
+            </div>
+        </div>
 
-        <!--collate:js[-->
+<script type="text/javascript">
+    var GIST_IT_BASE="{{ dispatch.url_for() }}"
+</script>
 <script type="text/javascript" src="/assets/jquery.js"></script>
+<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/index.js"></script>
 <script type="text/javascript" src="/assets/prettify/prettify.js"></script>
-        <!--]-->
 <script type="text/javascript">prettyPrint();</script>
-
     </body>
 </html>

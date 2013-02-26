@@ -25,8 +25,8 @@ my ( $body, $body_re );
 
 $test->get( "$base" );
 $test->status_code_is( 200 );
-$test->body_like( qr/Description/ );
-$test->body_like( qr/Usage/ );
+$test->body_like( qr/DESCRIPTION/ );
+$test->body_like( qr/USAGE/ );
 
 $test->get( "$base/github/robertkrimen/gist-it-example/blob/master/README" );
 $test->status_code_is( 200 );
@@ -113,9 +113,9 @@ $test->body_like( qr{\QUnable to parse "/github/": Not a valid repository path?\
 diag $test->response->decoded_content;
 
 for (
-    [ 'embed.css' => { size => 1358 } ],
-    [ 'prettify/prettify.css' => { size => 1000 } ],
-    [ 'prettify/prettify.js' => { size => 58968 } ],
+    [ 'embed.css' => { size => 983 } ],
+    [ 'prettify/prettify.css' => { size => 675 } ],
+    [ 'prettify/prettify.js' => { size => 14387 } ],
 ){
     my $asset = $_->[0];
     my $expect = $_->[1];

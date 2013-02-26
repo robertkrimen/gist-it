@@ -70,9 +70,9 @@ Line 6
 Line 8
 """
         self.assertEqual( gist_it.take_slice( content, 0, 0 ), content )
-        self.assertEqual( gist_it.take_slice( content, 1, 2 ), "Line 2" )
+        self.assertEqual( gist_it.take_slice( content, 1, 2 ), "Line 2\nLine 3" )
         self.assertEqual( gist_it.take_slice( content, 1, None ), "Line 2" )
-        self.assertEqual( gist_it.take_slice( content, 0, 2 ), "\nLine 2" )
+        self.assertEqual( gist_it.take_slice( content, 0, 2 ), "\nLine 2\nLine 3" )
         self.assertEqual( gist_it.take_slice( content, 0, -1 ), """
 Line 2
 Line 3

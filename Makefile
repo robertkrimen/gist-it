@@ -1,4 +1,4 @@
-.PHONY: test t
+.PHONY: test t crunch
 
 test:
 	unit2 discover -v test
